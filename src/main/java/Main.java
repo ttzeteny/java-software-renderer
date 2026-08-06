@@ -45,11 +45,20 @@ public class Main {
                 g2.fillRect(0, 0, getWidth(), getHeight());
 
                 double heading = Math.toRadians(headingSlider.getValue());
-                Matrix3 transform = new Matrix3(new double[] {
+                Matrix3 headingTransform = new Matrix3(new double[] {
                         Math.cos(heading), 0, -Math.sin(heading),
                         0, 1, 0,
                         Math.sin(heading), 0, Math.cos(heading)
                 });
+
+                double pitch = Math.toRadians(pitchSlider.getValue());
+                Matrix3 pitchTransform = new Matrix3(new double[] {
+                        1, 0, 0,
+                        0, Math.cos(pitch), Math.sin(pitch),
+                        0, -Math.sin(pitch), Math.cos(pitch)
+                });
+
+                Matrix3 transform = headingTransform.multiply(pitchTransform);
 
                 g2.translate(getWidth() / 2, getHeight() / 2);
                 g2.setColor(Color.WHITE);
